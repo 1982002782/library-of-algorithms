@@ -60,31 +60,37 @@ def QuickSort(list, l, h):  # 快速排序
         QuickSort(list, i + 1, h)
 
 
+def Experiment1():
+    for num in N:
+        timelist = []
+        for i in range(10):
+            old_time = time.perf_counter()
+            BubbleSort(fun1(num, MAX))
+            timelist.append(time.perf_counter() - old_time)
+        time1.append(sum(timelist) / len(timelist))
+    print("冒泡排序的平均时间为：", end=" ")
+    print(time1)
+
+def Experiment2():
+    for num in N:
+        timelist = []
+        for i in range(10):
+            old_time = time.perf_counter()
+            list = fun1(num, MAX)
+            QuickSort(list, 0, len(list) - 1)
+            timelist.append(time.perf_counter() - old_time)
+        time2.append(sum(timelist) / len(timelist))
+    print("快速排序的平均时间:", end=" ")
+    print(time2)
+
+
 if __name__ == '__main__':
-    def Experiment1():
-        for num in N:
-            timelist = []
-            for i in range(10):
-                old_time = time.perf_counter()
-                BubbleSort(fun1(num, MAX))
-                timelist.append(time.perf_counter() - old_time)
-            time1.append(sum(timelist) / len(timelist))
-        print("冒泡排序的平均时间为：", end=" ")
-        print(time1)
-
-
-    def Experiment2():
-        for num in N:
-            timelist = []
-            for i in range(10):
-                old_time = time.perf_counter()
-                list = fun1(num, MAX)
-                QuickSort(list, 0, len(list) - 1)
-                timelist.append(time.perf_counter() - old_time)
-            time2.append(sum(timelist) / len(timelist))
-        print("快速排序的平均时间:", end=" ")
-        print(time2)
-
-
     Experiment1()
     Experiment2()
+    plt.style.use("seaborn")
+    matplotlib.rc("font", family='FangSong')
+    plt.xlabel("数字个数")
+    plt.ylabel("运行时间")
+    plt.plot(N, time1)
+    plt.plot(N, time2)
+    plt.show()
